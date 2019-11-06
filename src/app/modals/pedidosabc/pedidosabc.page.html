@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="primary">
+      <ion-button (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+    <ion-title size="small">{{ motivo }} pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-text color="green" *ngIf="form && form.get('finalizado').value"><h2 class="ion-text-center">Pedido finalizado</h2></ion-text>
+    <h3 class="ion-text-center">Datos del cliente</h3>
+    <ion-item lines="none">
+        <ion-label>
+            <h2>{{clientes.buscarPorId(idcliente).nombre + " " + clientes.buscarPorId(idcliente).apellidos}}</h2>
+            <p>Teléfono: {{clientes.buscarPorId(idcliente).telefono}}</p>
+          </ion-label>
+          <ion-icon name="person" color="danger" slot="start"></ion-icon>
+    </ion-item>
+
+    <h3 class="ion-text-center">Artículos del pedido</h3>
+    <div
+    *ngFor="let ar of articulos; index as i"
+      class="ion-padding article"
+    >
+    <ion-row class="ion-justify-content-between ion-align-items-center">
+        <ion-col>
+            <ion-item size="3">
+                <ion-label position="floating">Artículo</ion-label>
+                <ion-input [(ngModel)]="ar.articulo"></ion-input>
+              </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button fill="outline" color="danger" expand="block" (click)="eliminarArticulo(i)" *ngIf="articulos.length > 1">
+            <ion-icon name="close" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-col>
+    </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Cantidad</ion-label>
+            <ion-input [(ngModel)]="ar.cantidad" type="number" (ngModelChange)="actualizarTotal()"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Precio</ion-label>
+            <ion-input [(ngModel)]="ar.precio" type="number" (ngModelChange)="actualizarTotal()"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+  <form [formGroup]="form">
+    <ion-list>
+
+        <h3 class="ion-text-center">Datos del Pedido</h3>
+
+      <ion-item lines="none">
+        <ion-label>Fecha de registro</ion-label>
+        <ion-datetime
+          disabled
+          displayFormat="DD MM YYYY"
+          formControlName="fecha"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Fecha de entrega</ion-label>
+        <ion-datetime
+          displayFormat="DD MM YYYY"
+          formControlName="fechaentrega"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>  
+          <ion-label>Total</ion-label>
+          <ion-input formControlName="total" readonly></ion-input>
+        </ion-item>
+      <ion-item>  
+          <ion-label >Anticipo:</ion-label>
+          <ion-input formControlName="anticipo" type="number"></ion-input>
+        </ion-item>
+          <ion-item>  
+              <ion-label>Total pendiente</ion-label>
+              <ion-input readonly [value]="+form.get('total').value - +form.get('anticipo').value"></ion-input>
+            </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar class="ion-padding-left options">
+    <ion-row>
+      <ion-col>
+        <ion-button color="medium" (click)="agregarArticulo()" expand="block" [disabled]="form.get('finalizado').value">
+          <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+      
+      
+      </ion-col>
+      <ion-col>
+        <ion-button color="success" (click)="guardarPedido()" [disabled]="form.invalid || form.get('finalizado').value" expand="block">
+          Guardar
+            <ion-icon name="checkmark" slot="start"></ion-icon>
+          </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

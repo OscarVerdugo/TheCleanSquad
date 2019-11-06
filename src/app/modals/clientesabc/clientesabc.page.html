@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="primary">
+      <ion-button (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+    <ion-title size="small">{{ motivo }} clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" *ngIf="form">
+    <ion-text color="medium" class="ion-text-center">
+        <h2>Datos del cliente</h2>
+    </ion-text>
+    <ion-item>  
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Apellidos</ion-label>
+      <ion-input formControlName="apellidos"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" [ngClass]="form.hasError('telefonoEnUso') ? 'error': ''">Teléfono <b *ngIf="form.hasError('telefonoEnUso')">- Ya está en uso</b></ion-label>
+      <ion-input formControlName="telefono" type="tel"></ion-input>
+    </ion-item>
+    <ion-button [disabled]="form.invalid" color="medium" expand="block" class="ion-margin-top" type="submit">Guardar</ion-button>
+  </form>
+</ion-content>

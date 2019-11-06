@@ -1,5 +1,7 @@
 {
-  "name": "TheCleanSquadApp",
-  "integrations": {},
+  "name": "TheCleanSquad",
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

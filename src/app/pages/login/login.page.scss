@@ -1,0 +1,14 @@
+.form{
+    display: flex;
+    // align-content: flex- end;
+    align-items: center;
+    flex-direction: column;
+    height: 80%;
+}
+.form ion-item{
+    padding: 20px;
+}
+
+ion-img{
+    width: 70%;
+}

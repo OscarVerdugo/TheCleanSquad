@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-
+import { Router } from "@angular/router";
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { UsersService } from "./services/users.service";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -12,23 +12,35 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
+      title: 'Pedidos por entregar',
       url: '/home',
-      icon: 'home'
+      icon: 'calendar'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Clientes',
+      url: '/clientes',
+      icon: 'people'
+    },
+    {
+      title: 'Pedidos',
+      url: '/pedidos',
+      icon: 'people'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private user: UsersService,
+    private router: Router
   ) {
     this.initializeApp();
+  }
+
+  logOut(){
+    this.user.logOut();
+    this.router.navigate(['/login']);
   }
 
   initializeApp() {
