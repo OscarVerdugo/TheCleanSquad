@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="primary">
+      <ion-button (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+    <ion-title size="small">{{ motivo }} tipo de servicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" *ngIf="form">
+    <ion-text color="medium" class="ion-text-center">
+        <h2>Datos del tipo de servicio</h2>
+    </ion-text>
+    <ion-item>  
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-input formControlName="cDescripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input formControlName="nPrecio" type="number"></ion-input>
+    </ion-item>
+    <ion-button [disabled]="form.invalid" color="medium" expand="block" class="ion-margin-top" type="submit">Guardar</ion-button>
+  </form>
+</ion-content>

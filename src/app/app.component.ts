@@ -12,7 +12,7 @@ import { UsersService } from "./services/users.service";
 export class AppComponent {
   public appPages = [
     {
-      title: 'Pedidos por entregar',
+      title: 'Servicios por entregar',
       url: '/home',
       icon: 'calendar'
     },
@@ -22,9 +22,14 @@ export class AppComponent {
       icon: 'people'
     },
     {
-      title: 'Pedidos',
+      title: 'Servicios',
       url: '/pedidos',
-      icon: 'people'
+      icon: 'clipboard'
+    },
+    {
+      title: 'Tipos de servicio',
+      url: '/servicios',
+      icon: 'hammer'
     }
   ];
 

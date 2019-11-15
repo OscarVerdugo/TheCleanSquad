@@ -11,11 +11,11 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ClientesabcPage } from "./modals/clientesabc/clientesabc.page";
-import { PedidosabcPage } from "./modals/pedidosabc/pedidosabc.page"
-import{ UsersService } from "./services/users.service";
+import { PedidosabcPage } from "./modals/pedidosabc/pedidosabc.page";
+import { ServiciosabcComponent } from "./modals/serviciosabc/serviciosabc.component";
 @NgModule({
-  declarations: [AppComponent, ClientesabcPage,PedidosabcPage],
-  entryComponents: [ClientesabcPage,PedidosabcPage],
+  declarations: [AppComponent, ClientesabcPage,PedidosabcPage,ServiciosabcComponent],
+  entryComponents: [ClientesabcPage,PedidosabcPage,ServiciosabcComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

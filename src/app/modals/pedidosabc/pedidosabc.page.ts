@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ModalController, ToastController } from "@ionic/angular";
 import { PedidosService } from "../../services/pedidos.service";
 import { ClientesService } from "../../services/clientes.service";
+import { ServicesService } from '../../services/services.service'
 @Component({
   selector: "app-pedidosabc",
   templateUrl: "./pedidosabc.page.html",
@@ -14,13 +15,15 @@ export class PedidosabcPage implements OnInit {
   @Input() id: any;
   pedido: any;
   articulos: Array<any> = [];
+  lstServices: Array<any> = [];
   form: any;
   constructor(
     private formBuilder: FormBuilder,
     private pedidos: PedidosService,
     private modal: ModalController,
     private clientes: ClientesService,
-    private toast: ToastController
+    private toast: ToastController,
+    private servicios: ServicesService
   ) {}
 
   async ngOnInit() {
@@ -36,6 +39,9 @@ export class PedidosabcPage implements OnInit {
       },
       { validators: [this.validarAnticipo.bind(this)] }
     );
+    await this.servicios.cargar().then(()=>{
+      this.lstServices = this.servicios.lstServices;
+    });
     await this.pedidos.cargar().then(() => {
       this.pedido = this.pedidos.buscarPorId(this.id);
     });
@@ -74,7 +80,7 @@ export class PedidosabcPage implements OnInit {
   }
 
   agregarArticulo() {
-    let obj = { articulo: "", cantidad: 1, precio: "" };
+    let obj = { articulo: "", cantidad: 1, idservicio:1};
     this.articulos.push(obj);
   }
 
@@ -89,7 +95,7 @@ export class PedidosabcPage implements OnInit {
   actualizarTotal() {
     let tot = 0;
     for (let ar of this.articulos) {
-      tot += +ar.cantidad * +ar.precio;
+      tot += +ar.cantidad * + this.servicios.buscarPorId(ar.idservicio).nPrecio;
     }
     if (isNaN(tot)) tot = 0;
     this.form.controls.total.setValue(tot);
@@ -120,14 +126,7 @@ export class PedidosabcPage implements OnInit {
     for (let art of this.articulos) {
       if (!art.articulo || art.articulo.trim() == "") {
         return false;
-      } else if (
-        !art.precio ||
-        art.precio == "" ||
-        isNaN(art.precio) ||
-        +art.precio < 0
-      ) {
-        return false;
-      } else if (
+      }  else if (
         !art.cantidad ||
         art.cantidad == "" ||
         isNaN(art.cantidad) ||
@@ -153,5 +152,11 @@ export class PedidosabcPage implements OnInit {
     return +group.get("anticipo").value > +group.get("total").value
       ? { errorAnticipo: true }
       : null;
+  }
+
+  onSelectChange(ev,ar){
+    console.log(ev);
+    console.log(ar);
+    ar.nPrecio = this.servicios.buscarPorId(ev).nPrecio;
   }
 }

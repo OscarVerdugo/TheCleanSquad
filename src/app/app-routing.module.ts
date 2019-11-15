@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'clientesabc', loadChildren: './modals/clientesabc/clientesabc.module#ClientesabcPageModule' },
   { path: 'pedidosabc', loadChildren: './modals/pedidosabc/pedidosabc.module#PedidosabcPageModule' },
   { path: 'pedidos', loadChildren: './pages/pedidos/pedidos.module#PedidosPageModule' },
+  { path: 'servicios', loadChildren: './pages/servicios/servicios.module#ServiciosPageModule' },
 ];
 
 @NgModule({
