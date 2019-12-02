@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="primary">
+      <ion-button (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+    <ion-title size="small">Imprimir</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Comprobante</h2>
+  <ion-row>
+    <ion-col>
+      Fecha:
+    </ion-col>
+    <ion-col class="fecha">
+      <b>{{ ped.fecha }}</b>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      Fecha de entrega:
+    </ion-col>
+    <ion-col class="fecha">
+      <b>{{ ped.fechaentrega }}</b>
+    </ion-col>
+  </ion-row>
+  <br />
+  <ion-row>
+    <ion-col>
+      Cliente
+    </ion-col>
+    <ion-col class="fecha">
+      <b>{{ ctes.buscarPorId(ped.idcliente).nombre }}</b>
+    </ion-col>
+  </ion-row>
+  <br />
+  <h3>Articulos</h3>
+  <ion-row>
+    <ion-col>
+     <b>Articulo</b>
+    </ion-col>
+    <ion-col>
+      <b>Servicio</b>
+    </ion-col>
+    <ion-col>
+      <b>Cantidad</b>
+    </ion-col>
+    <ion-col><b>Monto</b></ion-col>
+  </ion-row>
+  <ion-row *ngFor="let a of ped.articulos">
+    <ion-col>{{a.articulo}}</ion-col>
+    <ion-col>{{serv.buscarPorId(a.idservicio).cDescripcion}}</ion-col>
+    <ion-col>{{a.cantidad}}</ion-col>
+    <ion-col>{{a.nPrecio | currency}}</ion-col>
+  </ion-row>
+  <span class="totales">
+    Total: <b>{{ped.total | currency}}</b><br>
+    Anticipo: <b>{{ped.anticipo | currency}}</b><br>
+    Pendiente: <b>{{(ped.total - ped.anticipo) | currency}}</b><br>
+  </span>
+</ion-content>

@@ -3,6 +3,7 @@ import { PedidosService } from "../../services/pedidos.service";
 import { ClientesService } from "../../services/clientes.service";
 import { ModalController, ToastController } from "@ionic/angular";
 import { PedidosabcPage } from "../../modals/pedidosabc/pedidosabc.page";
+import { ImprimirComponent } from 'src/app/modals/imprimir/imprimir.component';
 @Component({
   selector: "app-pedidos",
   templateUrl: "./pedidos.page.html",
@@ -34,6 +35,16 @@ export class PedidosPage implements OnInit {
     });
     mod.onDidDismiss().then(() => {
       this.lstPedidos = this.pedidos.lstPedidos;
+    });
+    return await mod.present();
+  }
+
+  async imprimir(ped) {
+    let mod = await this.modal.create({
+      component: ImprimirComponent,
+      componentProps: {
+        ped: ped
+      }
     });
     return await mod.present();
   }

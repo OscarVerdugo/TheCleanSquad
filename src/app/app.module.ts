@@ -13,9 +13,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { ClientesabcPage } from "./modals/clientesabc/clientesabc.page";
 import { PedidosabcPage } from "./modals/pedidosabc/pedidosabc.page";
 import { ServiciosabcComponent } from "./modals/serviciosabc/serviciosabc.component";
+import { ImprimirComponent } from './modals/imprimir/imprimir.component';
 @NgModule({
-  declarations: [AppComponent, ClientesabcPage,PedidosabcPage,ServiciosabcComponent],
-  entryComponents: [ClientesabcPage,PedidosabcPage,ServiciosabcComponent],
+  declarations: [AppComponent, ClientesabcPage,PedidosabcPage,ServiciosabcComponent,ImprimirComponent],
+  entryComponents: [ClientesabcPage,PedidosabcPage,ServiciosabcComponent,ImprimirComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
